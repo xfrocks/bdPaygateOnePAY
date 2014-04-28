@@ -58,7 +58,20 @@
     </route_type>
   </route_prefixes>
   <style_properties/>
-  <templates/>
+  <templates>
+    <template title="bdpaygateonepay_onepay_index" version_id="1" version_string="0.9-dev"><![CDATA[<xen:title>{xen:phrase bdpaygateonepay_pay_with_onepay}</xen:title>
+
+<form class="xenForm formOverlay">
+	<p>{xen:phrase bdpaygateonepay_go_to_onepay_explain}</p>
+	
+	<dl class="ctrlUnit submitUnit">
+		<dt></dt>
+		<dd>
+			<a href="{xen:raw $redirect}" class="button">{xen:phrase bdpaygateonepay_go_to_onepay}</a>
+		</dd>
+	</dl>
+</form>]]></template>
+  </templates>
   <public_template_modifications/>
   <bb_code_media_sites/>
   <bb_codes/>
