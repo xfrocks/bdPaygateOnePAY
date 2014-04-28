@@ -55,7 +55,7 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 		}
 
 		$transactionId = (!empty($filtered['vpc_TransactionNo']) ? ('onepayc_' . $filtered['vpc_TransactionNo']) : '');
-		$transactionDetails = array_merge($_GET, $filtered);
+		$transactionDetails = array_merge($_REQUEST, $filtered);
 		$itemId = $this->_parseMerchTxnRef($filtered['vpc_MerchTxnRef']);
 		$amount = $filtered['vpc_Amount'] / 100;
 		$currency = bdPaygateOnePAY_Processor_Common::CURRENCY_VND;
@@ -105,6 +105,18 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 
 	public function redirectOnCallback(Zend_Controller_Request_Http $request, $paymentStatus, $processMessage)
 	{
+		if (!empty($_REQUEST['ipn']))
+		{
+			if ($paymentStatus == bdPaygate_Processor_Abstract::PAYMENT_STATUS_ACCEPTED)
+			{
+				die('responsecode=1&desc=confirm-success');
+			}
+			else
+			{
+				die('responsecode=0&desc=confirm-fail');
+			}
+		}
+
 		if (XenForo_Application::isRegistered('session'))
 		{
 			$session = XenForo_Application::getSession();

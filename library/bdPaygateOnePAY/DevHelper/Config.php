@@ -4,7 +4,12 @@ class bdPaygateOnePAY_DevHelper_Config extends DevHelper_Config_Base
 	protected $_dataClasses = array();
 	protected $_dataPatches = array();
 	protected $_exportPath = '/Users/sondh/XenForo/bdPaygate/MORE/bdPaygateOnePAY';
-	protected $_exportIncludes = array('bdpaygate/onepayi.php', 'bdpaygate/onepayl.php');
+	protected $_exportIncludes = array(
+		'bdpaygate/onepayi.php',
+		'bdpaygate/onepayi_ipn.php',
+		'bdpaygate/onepayl.php',
+		'bdpaygate/onepayl_ipn.php',
+	);
 
 	/**
 	 * Return false to trigger the upgrade!
