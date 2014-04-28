@@ -117,6 +117,15 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 			}
 		}
 
+		$message = '';
+		if ($paymentStatus == bdPaygate_Processor_Abstract::PAYMENT_STATUS_REJECTED)
+		{
+			if (!empty($_REQUEST['vpc_Message']))
+			{
+				$message = $_REQUEST['vpc_Message'];
+			}
+		}
+
 		if (XenForo_Application::isRegistered('session'))
 		{
 			$session = XenForo_Application::getSession();
@@ -127,12 +136,12 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 		}
 
 		$returnUrl = $session->get('_bdPaygateOnePAY_returnUrl');
-		if (empty($returnUrl))
-		{
-			$returnUrl = XenForo_Application::getOptions()->get('boardUrl');
-		}
 
-		header('Location: ' . $returnUrl);
+		header('Location: ' . XenForo_Link::buildPublicLink('canonical:onepay/complete', '', array(
+			'payment_accepted' => $paymentStatus == bdPaygate_Processor_Abstract::PAYMENT_STATUS_ACCEPTED ? 1 : 0,
+			'message' => $message,
+			'return_url' => $returnUrl,
+		)));
 		die();
 	}
 

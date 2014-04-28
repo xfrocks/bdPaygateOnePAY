@@ -44,7 +44,10 @@
     <phrase title="bdpaygateonepay_call_to_action_local" version_id="1" version_string="0.9-dev"><![CDATA[Pay with OnePAY (local)]]></phrase>
     <phrase title="bdpaygateonepay_go_to_onepay" version_id="1" version_string="0.9-dev"><![CDATA[Go to OnePAY]]></phrase>
     <phrase title="bdpaygateonepay_go_to_onepay_explain" version_id="1" version_string="0.9-dev"><![CDATA[By clicking the below "Go to OnePAY" button, you have agreed to our Terms of Service.]]></phrase>
+    <phrase title="bdpaygateonepay_payment_rejected_message_x" version_id="1" version_string="0.9-dev"><![CDATA[Your payment has been rejected with this message: "{message}". Please try again later or contact our staff for support. We are sorry for the inconvenience.]]></phrase>
+    <phrase title="bdpaygateonepay_payment_rejected_no_message" version_id="1" version_string="0.9-dev"><![CDATA[Your payment has been rejected for unknown reason. Please try again later or contact our staff for support. We are sorry for the inconvenience.]]></phrase>
     <phrase title="bdpaygateonepay_pay_with_onepay" version_id="1" version_string="0.9-dev"><![CDATA[Pay with OnePAY]]></phrase>
+    <phrase title="bdpaygateonepay_thank_you_payment_accepted" version_id="1" version_string="0.9-dev"><![CDATA[Thank you, your payment has been accepted.]]></phrase>
     <phrase title="option_bdPaygateOnePAY_code" version_id="1" version_string="0.9-dev"><![CDATA[OnePAY Access Code]]></phrase>
     <phrase title="option_bdPaygateOnePAY_code_explain" version_id="1" version_string="0.9-dev"><![CDATA[]]></phrase>
     <phrase title="option_bdPaygateOnePAY_hash" version_id="1" version_string="0.9-dev"><![CDATA[OnePAY Hash Code]]></phrase>
@@ -59,6 +62,28 @@
   </route_prefixes>
   <style_properties/>
   <templates>
+    <template title="bdpaygateonepay_onepay_complete" version_id="1" version_string="0.9-dev"><![CDATA[<xen:title>{xen:phrase bdpaygateonepay_pay_with_onepay}</xen:title>
+
+<form class="xenForm formOverlay">
+
+	<xen:if is="{$paymentAccepted}">
+		<p>{xen:phrase bdpaygateonepay_thank_you_payment_accepted}</p>
+
+		<xen:if is="{$returnUrl}">
+			<dl class="ctrlUnit submitUnit">
+				<dt></dt>
+				<dd>
+					<a href="{xen:raw $returnUrl}" class="button">{xen:phrase continue}</a>
+				</dd>
+			</dl>
+		</xen:if>
+	<xen:elseif is="{$message}" />
+		<p>{xen:phrase bdpaygateonepay_payment_rejected_message_x, 'message={$message}'}</p>
+	<xen:else />
+		<p>{xen:phrase bdpaygateonepay_payment_rejected_no_message}</p>
+	</xen:if>
+
+</form>]]></template>
     <template title="bdpaygateonepay_onepay_index" version_id="1" version_string="0.9-dev"><![CDATA[<xen:title>{xen:phrase bdpaygateonepay_pay_with_onepay}</xen:title>
 
 <form class="xenForm formOverlay">

@@ -31,4 +31,19 @@ class bdPaygateOnePAY_ControllerPublic_OnePAY extends XenForo_ControllerPublic_A
 		return $this->responseView('bdPaygateOnePAY_ViewPublic_OnePAY_Index', 'bdpaygateonepay_onepay_index', $viewParams);
 	}
 
+	public function actionComplete()
+	{
+		$paymentAccepted = $this->_input->filterSingle('payment_accepted', XenForo_Input::STRING);
+		$message = $this->_input->filterSingle('message', XenForo_Input::STRING);
+		$returnUrl = $this->_input->filterSingle('return_url', XenForo_Input::STRING);
+
+		$viewParams = array(
+			'paymentAccepted' => $paymentAccepted,
+			'message' => $message,
+			'returnUrl' => $returnUrl,
+		);
+
+		return $this->responseView('bdPaygateOnePAY_ViewPublic_OnePAY_Complete', 'bdpaygateonepay_onepay_complete', $viewParams);
+	}
+
 }
