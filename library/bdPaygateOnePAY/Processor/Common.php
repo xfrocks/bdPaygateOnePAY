@@ -20,6 +20,13 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 		return false;
 	}
 
+	public function isAvailable()
+	{
+		$id = $this->_getOnePAYId();
+
+		return !empty($id);
+	}
+
 	public function validateCallback(Zend_Controller_Request_Http $request, &$transactionId, &$paymentStatus, &$transactionDetails, &$itemId)
 	{
 		$amount = false;
