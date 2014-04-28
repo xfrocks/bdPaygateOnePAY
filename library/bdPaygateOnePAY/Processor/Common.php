@@ -157,6 +157,7 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 		}
 
 		$form = sprintf('<a href="%1$s" class="button OverlayTrigger">%2$s</a>', XenForo_Link::buildPublicLink('onepay', '', array(
+			'local' => $this instanceof bdPaygateOnePAY_Processor_Local ? 1 : 0,
 			'redirect' => $link,
 			'return_url' => $this->_generateReturnUrl($extraData),
 		)), $callToAction);

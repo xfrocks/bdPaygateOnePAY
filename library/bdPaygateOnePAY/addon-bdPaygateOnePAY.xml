@@ -40,8 +40,8 @@
     <interface_groups/>
   </permissions>
   <phrases>
-    <phrase title="bdpaygateonepay_call_to_action_international" version_id="1" version_string="0.9-dev"><![CDATA[Pay with International Card]]></phrase>
-    <phrase title="bdpaygateonepay_call_to_action_local" version_id="1" version_string="0.9-dev"><![CDATA[Pay with OnePAY (local)]]></phrase>
+    <phrase title="bdpaygateonepay_call_to_action_international" version_id="1" version_string="0.9-dev"><![CDATA[Pay with Credit/Debit card]]></phrase>
+    <phrase title="bdpaygateonepay_call_to_action_local" version_id="1" version_string="0.9-dev"><![CDATA[ Pay with ATM card]]></phrase>
     <phrase title="bdpaygateonepay_go_to_onepay" version_id="1" version_string="0.9-dev"><![CDATA[Go to OnePAY]]></phrase>
     <phrase title="bdpaygateonepay_go_to_onepay_explain" version_id="1" version_string="0.9-dev"><![CDATA[By clicking the below "Go to OnePAY" button, you have agreed to our Terms of Service.]]></phrase>
     <phrase title="bdpaygateonepay_payment_rejected_message_x" version_id="1" version_string="0.9-dev"><![CDATA[Your payment has been rejected with this message: "{message}". Please try again later or contact our staff for support. We are sorry for the inconvenience.]]></phrase>
@@ -62,6 +62,101 @@
   </route_prefixes>
   <style_properties/>
   <templates>
+    <template title="bdpaygateonepay.css" version_id="1" version_string="0.9-dev"><![CDATA[ul.bdPaygateOnePAY_logos
+{
+	margin: 0 auto;
+	max-width: 100%;
+	width: 410px;
+}
+
+ul.bdPaygateOnePAY_logos > li
+{
+	background: url('{xen:property imagePath}/bdPaygateOnePAY/logos.png') no-repeat;
+	color: transparent;
+	display: inline-block;
+	height: 52px;
+	margin: 5px;
+	overflow: hidden;
+	width: 68px;
+	white-space: nowrap;
+}
+
+.bdPaygateOnePAY_logos .vietcombank      { background-position:  -544px 0px; }
+.bdPaygateOnePAY_logos .vietinbank       { background-position:  -748px 0px; }
+.bdPaygateOnePAY_logos .bidv             { background-position: -1705px 0px; }
+.bdPaygateOnePAY_logos .vib              { background-position:  -816px 0px; }
+.bdPaygateOnePAY_logos .eximbank         { background-position: -1226px 0px; }
+.bdPaygateOnePAY_logos .sacombank        { background-position: -1500px 0px; }
+.bdPaygateOnePAY_logos .mb               { background-position: -1022px 0px; }
+.bdPaygateOnePAY_logos .tpbank           { background-position:  -680px 0px; }
+.bdPaygateOnePAY_logos .hdbank           { background-position:  -954px 0px; }
+.bdPaygateOnePAY_logos .shb              { background-position: -1295px 0px; }
+.bdPaygateOnePAY_logos .maritimebank     { background-position: -1158px 0px; }
+.bdPaygateOnePAY_logos .vietabank        { background-position: -1090px 0px; }
+.bdPaygateOnePAY_logos .namabank         { background-position: -1569px 0px; }
+.bdPaygateOnePAY_logos .oceanbank        { background-position: -1637px 0px; }
+.bdPaygateOnePAY_logos .seabank          { background-position: -1773px 0px; }
+.bdPaygateOnePAY_logos .bacabank         { background-position: -1842px 0px; }
+.bdPaygateOnePAY_logos .abbank           { background-position: -1431px 0px; }
+.bdPaygateOnePAY_logos .ncb              { background-position: -1910px 0px; }
+.bdPaygateOnePAY_logos .agribank         { background-position: -1977px 0px; }
+.bdPaygateOnePAY_logos .scb              { background-position: -2045px 0px; }
+.bdPaygateOnePAY_logos .techcombank      { background-position:  -612px 0px; }
+.bdPaygateOnePAY_logos .dongabank        { background-position:  -885px 0px; }
+.bdPaygateOnePAY_logos .vpbank           { background-position: -1362px 0px; }
+
+.bdPaygateOnePAY_logos .visa             { background-position:     0px 0px; }
+.bdPaygateOnePAY_logos .mastercard       { background-position:  -136px 0px; }
+.bdPaygateOnePAY_logos .jcb              { background-position:  -408px 0px; }
+.bdPaygateOnePAY_logos .amex             { background-position:  -272px 0px; }
+.bdPaygateOnePAY_logos .unionpay         { background-position:  -477px 0px; }
+
+
+
+
+
+
+
+
+
+
+]]></template>
+    <template title="bdpaygateonepay_logos_international" version_id="1" version_string="0.9-dev"><![CDATA[<xen:require css="bdpaygateonepay.css" />
+
+<ul class="bdPaygateOnePAY_logos international">
+	<li class="visa">Visa</li>
+	<li class="mastercard">Mastercard</li>
+	<li class="jcb">JCB</li>
+	<li class="amex">American Express</li>
+	<li class="unionpay">UnionPay</li>
+</ul>]]></template>
+    <template title="bdpaygateonepay_logos_local" version_id="1" version_string="0.9-dev"><![CDATA[<xen:require css="bdpaygateonepay.css" />
+
+<ul class="bdPaygateOnePAY_logos local">
+	<li class="vietcombank">Vietcombank</li>
+	<li class="vietinbank">Vietinbank</li>
+	<li class="bidv">BIDV</li>
+	<li class="vib">VIB</li>
+	<li class="eximbank">Eximbank</li>
+	<li class="sacombank">Sacombank</li>
+	<li class="mb">MB</li>
+	<li class="tpbank">TPBank</li>
+	<li class="hdbank">HDBank</li>
+	<li class="shb">SHB</li>
+	<li class="maritimebank">MaritimeBank</li>
+	<li class="vietabank">Viet A Bank</li>
+	<li class="namabank">Nam A Bank</li>
+	<li class="oceanbank">OceanBank</li>
+	<li class="seabank">SeABank</li>
+	<li class="bacabank">Bac A Bank</li>
+	<li class="abbank">ABBank</li>
+	<li class="ncb">NCB</li>
+	<li class="agribank">Agribank</li>
+	<li class="scb">SCB</li>
+	<li class="techcombank">Techcombank</li>
+	<li class="dongabank">Dong A Bank</li>
+	<li class="vpbank">VPBank</li>
+</ul>]]></template>
     <template title="bdpaygateonepay_onepay_complete" version_id="1" version_string="0.9-dev"><![CDATA[<xen:title>{xen:phrase bdpaygateonepay_pay_with_onepay}</xen:title>
 
 <form class="xenForm formOverlay">
@@ -88,6 +183,12 @@
 
 <form class="xenForm formOverlay">
 	<p>{xen:phrase bdpaygateonepay_go_to_onepay_explain}</p>
+	
+	<xen:if is="{$local}">
+		<xen:include template="bdpaygateonepay_logos_local" />
+	<xen:else />
+		<xen:include template="bdpaygateonepay_logos_international" />
+	</xen:if>
 	
 	<dl class="ctrlUnit submitUnit">
 		<dt></dt>

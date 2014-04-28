@@ -26,7 +26,10 @@ class bdPaygateOnePAY_ControllerPublic_OnePAY extends XenForo_ControllerPublic_A
 		$returnUrl = $this->_input->filterSingle('return_url', XenForo_Input::STRING);
 		XenForo_Application::getSession()->set('_bdPaygateOnePAY_returnUrl', $returnUrl);
 
-		$viewParams = array('redirect' => $redirect);
+		$viewParams = array(
+			'redirect' => $redirect,
+			'local' => $this->_input->filterSingle('local', XenForo_Input::UINT),
+		);
 
 		return $this->responseView('bdPaygateOnePAY_ViewPublic_OnePAY_Index', 'bdpaygateonepay_onepay_index', $viewParams);
 	}
