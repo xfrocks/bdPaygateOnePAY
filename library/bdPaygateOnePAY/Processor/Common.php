@@ -10,6 +10,50 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 	abstract protected function _getOnePAYCallToAction();
 	abstract protected function _getOnePAYLink();
 
+	public function bdPaygateOnePAY_getLink($amount, $currency, $itemName, $itemId, $recurringInterval = false, $recurringUnit = false, array $extraData = array())
+	{
+		$this->_assertAmount($amount);
+		$this->_assertCurrency($currency);
+		$this->_assertItem($itemName, $itemId);
+		$this->_assertRecurring($recurringInterval, $recurringUnit);
+
+		$params = array(
+			'vpc_Version' => 2,
+			'vpc_Command' => 'pay',
+			'vpc_Merchant' => $this->_getOnePAYId(),
+			'vpc_AccessCode' => $this->_getOnePAYCode(),
+			'vpc_MerchTxnRef' => $this->_generateMerchTxnRef($itemId),
+			'vpc_OrderInfo' => $itemName,
+			'vpc_Amount' => floor($amount * 100),
+			'vpc_Locale' => $this->_getLocale(),
+			'vpc_TicketNo' => $this->_getTicketNo(),
+			'vpc_ReturnURL' => $this->_generateCallbackUrl($extraData),
+		);
+
+		$params = $this->_prepareOnePAYParams($params, $extraData);
+
+		$params['vpc_SecureHash'] = $this->_generateSecureHash($params);
+
+		$callToAction = $this->_getOnePAYCallToAction();
+		$link = $this->_getOnePAYLink();
+
+		$i = 0;
+		foreach ($params as $paramKey => $paramValue)
+		{
+			$link .= ($i == 0 ? '?' : '&');
+			$link .= sprintf('%s=%s', urlencode($paramKey), urlencode($paramValue));
+
+			$i++;
+		}
+
+		return $link;
+	}
+
+	public function bdPaygateOnePAY_getReturnUrl($extraData)
+	{
+		return $this->_generateReturnUrl($extraData);
+	}
+
 	public function getSupportedCurrencies()
 	{
 		return array(bdPaygateOnePAY_Processor_Common::CURRENCY_VND);
@@ -82,45 +126,20 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 
 	public function generateFormData($amount, $currency, $itemName, $itemId, $recurringInterval = false, $recurringUnit = false, array $extraData = array())
 	{
-		$this->_assertAmount($amount);
-		$this->_assertCurrency($currency);
-		$this->_assertItem($itemName, $itemId);
-		$this->_assertRecurring($recurringInterval, $recurringUnit);
-
-		$params = array(
-			'vpc_Version' => 2,
-			'vpc_Command' => 'pay',
-			'vpc_Merchant' => $this->_getOnePAYId(),
-			'vpc_AccessCode' => $this->_getOnePAYCode(),
-			'vpc_MerchTxnRef' => $this->_generateMerchTxnRef($itemId),
-			'vpc_OrderInfo' => $itemName,
-			'vpc_Amount' => floor($amount * 100),
-			'vpc_Locale' => $this->_getLocale(),
-			'vpc_TicketNo' => $this->_getTicketNo(),
-			'vpc_ReturnURL' => $this->_generateCallbackUrl($extraData),
-		);
-
-		$params = $this->_prepareOnePAYParams($params, $extraData);
-
-		$params['vpc_SecureHash'] = $this->_generateSecureHash($params);
-
-		$callToAction = $this->_getOnePAYCallToAction();
-		$link = $this->_getOnePAYLink();
-
-		return $this->_generateOnePAYForm($link, $callToAction, $params, $extraData);
+		return '';
 	}
 
 	public function redirectOnCallback(Zend_Controller_Request_Http $request, $paymentStatus, $processMessage)
 	{
 		if (!empty($_REQUEST['ipn']))
 		{
-			if ($paymentStatus == bdPaygate_Processor_Abstract::PAYMENT_STATUS_ACCEPTED)
+			if ($paymentStatus == bdPaygate_Processor_Abstract::PAYMENT_STATUS_REJECTED)
 			{
-				die('responsecode=1&desc=confirm-success');
+				die('responsecode=0&desc=confirm-fail');
 			}
 			else
 			{
-				die('responsecode=0&desc=confirm-fail');
+				die('responsecode=1&desc=confirm-success');
 			}
 		}
 
@@ -150,26 +169,6 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 			'return_url' => $returnUrl,
 		)));
 		die();
-	}
-
-	protected function _generateOnePAYForm($link, $callToAction, $params, $extraData)
-	{
-		$i = 0;
-		foreach ($params as $paramKey => $paramValue)
-		{
-			$link .= ($i == 0 ? '?' : '&');
-			$link .= sprintf('%s=%s', urlencode($paramKey), urlencode($paramValue));
-
-			$i++;
-		}
-
-		$form = sprintf('<a href="%1$s" class="button OverlayTrigger">%2$s</a>', XenForo_Link::buildPublicLink('onepay', '', array(
-			'local' => $this instanceof bdPaygateOnePAY_Processor_Local ? 1 : 0,
-			'redirect' => $link,
-			'return_url' => $this->_generateReturnUrl($extraData),
-		)), $callToAction);
-
-		return $form;
 	}
 
 	protected function _generateCallbackUrl($extraData)

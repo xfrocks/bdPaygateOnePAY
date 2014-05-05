@@ -4,34 +4,76 @@ class bdPaygateOnePAY_ControllerPublic_OnePAY extends XenForo_ControllerPublic_A
 {
 	public function actionIndex()
 	{
-		$redirect = $this->_input->filterSingle('redirect', XenForo_Input::STRING);
-		if (empty($redirect))
+		$input = $this->_input->filter(array(
+			'pay' => XenForo_Input::STRING,
+
+			'amount' => XenForo_Input::STRING,
+			'currency' => XenForo_Input::STRING,
+			'itemName' => XenForo_Input::STRING,
+			'itemId' => XenForo_Input::STRING,
+			'recurringInterval' => XenForo_Input::STRING,
+			'recurringUnit' => XenForo_Input::STRING,
+			'extraData' => XenForo_Input::STRING,
+		));
+
+		if (empty($input['recurringInterval']) OR empty($input['recurringUnit']))
 		{
-			return $this->responseNoPermission();
+			$input['recurringInterval'] = false;
+			$input['recurringUnit'] = false;
+		}
+		$input['extraData'] = @json_decode($input['extraData'], true);
+		if (empty($input['extraData']))
+		{
+			$input['extraData'] = array();
 		}
 
-		$parsedUrl = parse_url($redirect);
-		if (empty($parsedUrl['host']))
+		switch ($input['pay'])
 		{
-			return $this->responseNoPermission();
+			case 'local':
+				$local = bdPaygate_Processor_Abstract::create('bdPaygateOnePAY_Processor_Local');
+				$link = call_user_func_array(array(
+					$local,
+					'bdPaygateOnePAY_getLink',
+				), array(
+					$input['amount'],
+					$input['currency'],
+					$input['itemName'],
+					$input['itemId'],
+					$input['recurringInterval'],
+					$input['recurringUnit'],
+					$input['extraData'],
+				));
+				$returnUrl = $local->bdPaygateOnePAY_getReturnUrl($input['extraData']);
+				break;
+			case 'international':
+				$international = bdPaygate_Processor_Abstract::create('bdPaygateOnePAY_Processor_International');
+				$link = call_user_func_array(array(
+					$international,
+					'bdPaygateOnePAY_getLink',
+				), array(
+					$input['amount'],
+					$input['currency'],
+					$input['itemName'],
+					$input['itemId'],
+					$input['recurringInterval'],
+					$input['recurringUnit'],
+					$input['extraData'],
+				));
+				$returnUrl = $international->bdPaygateOnePAY_getReturnUrl($input['extraData']);
+				break;
 		}
-		if (!in_array($parsedUrl['host'], array(
-			'mtf.onepay.vn',
-			'onepay.vn'
-		)))
+
+		if (!empty($link))
 		{
-			return $this->responseNoPermission();
+			if (!empty($returnUrl))
+			{
+				XenForo_Application::getSession()->set('_bdPaygateOnePAY_returnUrl', $returnUrl);
+			}
+
+			return $this->responseRedirect(XenForo_ControllerResponse_Redirect::SUCCESS, $link);
 		}
 
-		$returnUrl = $this->_input->filterSingle('return_url', XenForo_Input::STRING);
-		XenForo_Application::getSession()->set('_bdPaygateOnePAY_returnUrl', $returnUrl);
-
-		$viewParams = array(
-			'redirect' => $redirect,
-			'local' => $this->_input->filterSingle('local', XenForo_Input::UINT),
-		);
-
-		return $this->responseView('bdPaygateOnePAY_ViewPublic_OnePAY_Index', 'bdpaygateonepay_onepay_index', $viewParams);
+		return $this->responseView('bdPaygateOnePAY_ViewPublic_OnePAY_Index', 'bdpaygateonepay_onepay_index', $input);
 	}
 
 	public function actionComplete()

@@ -40,13 +40,13 @@
     <interface_groups/>
   </permissions>
   <phrases>
+    <phrase title="bdpaygateonepay_call_to_action_both" version_id="2" version_string="0.9-dev"><![CDATA[Pay with OnePAY]]></phrase>
     <phrase title="bdpaygateonepay_call_to_action_international" version_id="1" version_string="0.9-dev"><![CDATA[Pay with Credit/Debit card]]></phrase>
     <phrase title="bdpaygateonepay_call_to_action_local" version_id="1" version_string="0.9-dev"><![CDATA[ Pay with ATM card]]></phrase>
-    <phrase title="bdpaygateonepay_go_to_onepay" version_id="1" version_string="0.9-dev"><![CDATA[Go to OnePAY]]></phrase>
+    <phrase title="bdpaygateonepay_go_to_onepay" version_id="2" version_string="0.9-dev"><![CDATA[Pay Now]]></phrase>
     <phrase title="bdpaygateonepay_go_to_onepay_explain" version_id="1" version_string="0.9-dev"><![CDATA[By clicking the below "Go to OnePAY" button, you have agreed to our Terms of Service.]]></phrase>
     <phrase title="bdpaygateonepay_payment_rejected_message_x" version_id="1" version_string="0.9-dev"><![CDATA[Your payment has been rejected with this message: "{message}". Please try again later or contact our staff for support. We are sorry for the inconvenience.]]></phrase>
     <phrase title="bdpaygateonepay_payment_rejected_no_message" version_id="1" version_string="0.9-dev"><![CDATA[Your payment has been rejected for unknown reason. Please try again later or contact our staff for support. We are sorry for the inconvenience.]]></phrase>
-    <phrase title="bdpaygateonepay_pay_with_onepay" version_id="1" version_string="0.9-dev"><![CDATA[Pay with OnePAY]]></phrase>
     <phrase title="bdpaygateonepay_thank_you_payment_accepted" version_id="1" version_string="0.9-dev"><![CDATA[Thank you, your payment has been accepted.]]></phrase>
     <phrase title="option_bdPaygateOnePAY_code" version_id="1" version_string="0.9-dev"><![CDATA[OnePAY Access Code]]></phrase>
     <phrase title="option_bdPaygateOnePAY_code_explain" version_id="1" version_string="0.9-dev"><![CDATA[]]></phrase>
@@ -157,7 +157,7 @@ ul.bdPaygateOnePAY_logos > li
 	<li class="dongabank">Dong A Bank</li>
 	<li class="vpbank">VPBank</li>
 </ul>]]></template>
-    <template title="bdpaygateonepay_onepay_complete" version_id="1" version_string="0.9-dev"><![CDATA[<xen:title>{xen:phrase bdpaygateonepay_pay_with_onepay}</xen:title>
+    <template title="bdpaygateonepay_onepay_complete" version_id="2" version_string="0.9-dev"><![CDATA[<xen:title>{xen:phrase bdpaygateonepay_call_to_action_both}</xen:title>
 
 <form class="xenForm formOverlay">
 
@@ -179,23 +179,43 @@ ul.bdPaygateOnePAY_logos > li
 	</xen:if>
 
 </form>]]></template>
-    <template title="bdpaygateonepay_onepay_index" version_id="1" version_string="0.9-dev"><![CDATA[<xen:title>{xen:phrase bdpaygateonepay_pay_with_onepay}</xen:title>
+    <template title="bdpaygateonepay_onepay_index" version_id="2" version_string="0.9-dev"><![CDATA[<xen:title>{xen:phrase bdpaygateonepay_call_to_action_both}</xen:title>
 
-<form class="xenForm formOverlay">
+<form action="{xen:link onepay}" method="POST" class="xenForm formOverlay">
 	<p>{xen:phrase bdpaygateonepay_go_to_onepay_explain}</p>
 	
-	<xen:if is="{$local}">
-		<xen:include template="bdpaygateonepay_logos_local" />
-	<xen:else />
-		<xen:include template="bdpaygateonepay_logos_international" />
-	</xen:if>
+	<p>
+		<label>
+			<input type="radio" name="pay" value="local" checked="checked" />
+			{xen:phrase bdpaygateonepay_call_to_action_local}
+		</label>
+	</p>
+	<xen:include template="bdpaygateonepay_logos_local" />
+
+	<p>
+		<label>
+			<input type="radio" name="pay" value="international" />
+			{xen:phrase bdpaygateonepay_call_to_action_international}
+		</label>
+	</p>
+	<xen:include template="bdpaygateonepay_logos_international" />
 	
 	<dl class="ctrlUnit submitUnit">
 		<dt></dt>
 		<dd>
-			<a href="{xen:raw $redirect}" class="button">{xen:phrase bdpaygateonepay_go_to_onepay}</a>
+			<input type="submit" value="{xen:phrase bdpaygateonepay_go_to_onepay}" class="button primary" />
 		</dd>
 	</dl>
+
+	<input type="hidden" name="_xfToken" value="{$visitor.csrf_token_page}" />
+	<input type="hidden" name="amount" value="{$amount}" />
+	<input type="hidden" name="currency" value="{$currency}" />
+	<input type="hidden" name="itemName" value="{$itemName}" />
+	<input type="hidden" name="itemId" value="{$itemId}" />
+	<input type="hidden" name="recurringInterval" value="{$recurringInterval}" />
+	<input type="hidden" name="recurringUnit" value="{$recurringUnit}" />
+	<input type="hidden" name="extraData" value="{xen:escape {xen:helper json, $extraData}}" />
+
 </form>]]></template>
   </templates>
   <public_template_modifications/>

@@ -17,6 +17,7 @@ class bdPaygateOnePAY_bdPaygate_Model_Processor extends XFCP_bdPaygateOnePAY_bdP
 
 		$names['onepayl'] = 'bdPaygateOnePAY_Processor_Local';
 		$names['onepayi'] = 'bdPaygateOnePAY_Processor_International';
+		$names['onepay'] = 'bdPaygateOnePAY_Processor_Both';
 
 		return $names;
 	}
