@@ -133,7 +133,7 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 	{
 		if (!empty($_REQUEST['ipn']))
 		{
-			if ($paymentStatus == bdPaygate_Processor_Abstract::PAYMENT_STATUS_REJECTED)
+			if ($paymentStatus == bdPaygate_Processor_Abstract::PAYMENT_STATUS_ERROR)
 			{
 				die('responsecode=0&desc=confirm-fail');
 			}
