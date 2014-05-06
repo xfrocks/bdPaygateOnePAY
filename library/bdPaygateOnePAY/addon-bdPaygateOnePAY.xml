@@ -44,7 +44,7 @@
     <phrase title="bdpaygateonepay_call_to_action_international" version_id="1" version_string="0.9-dev"><![CDATA[Pay with Credit/Debit card]]></phrase>
     <phrase title="bdpaygateonepay_call_to_action_local" version_id="1" version_string="0.9-dev"><![CDATA[ Pay with ATM card]]></phrase>
     <phrase title="bdpaygateonepay_go_to_onepay" version_id="2" version_string="0.9-dev"><![CDATA[Pay Now]]></phrase>
-    <phrase title="bdpaygateonepay_go_to_onepay_explain" version_id="1" version_string="0.9-dev"><![CDATA[By clicking the below "Go to OnePAY" button, you have agreed to our Terms of Service.]]></phrase>
+    <phrase title="bdpaygateonepay_go_to_onepay_explain_button_x" version_id="2" version_string="0.9-dev"><![CDATA[By clicking the below "{button}" button, you have agreed to our Terms of Service.]]></phrase>
     <phrase title="bdpaygateonepay_payment_rejected_message_x" version_id="1" version_string="0.9-dev"><![CDATA[Your payment has been rejected with this message: "{message}". Please try again later or contact our staff for support. We are sorry for the inconvenience.]]></phrase>
     <phrase title="bdpaygateonepay_payment_rejected_no_message" version_id="1" version_string="0.9-dev"><![CDATA[Your payment has been rejected for unknown reason. Please try again later or contact our staff for support. We are sorry for the inconvenience.]]></phrase>
     <phrase title="bdpaygateonepay_thank_you_payment_accepted" version_id="1" version_string="0.9-dev"><![CDATA[Thank you, your payment has been accepted.]]></phrase>
@@ -62,11 +62,32 @@
   </route_prefixes>
   <style_properties/>
   <templates>
-    <template title="bdpaygateonepay.css" version_id="1" version_string="0.9-dev"><![CDATA[ul.bdPaygateOnePAY_logos
+    <template title="bdpaygateonepay.css" version_id="2" version_string="0.9-dev"><![CDATA[.bdPaygateOnePAY_ToS
 {
+	background: {xen:property contentBackground};
+	color: {xen:property contentText};
+	margin: 5px 0;
+	max-height: 5em;
+	overflow: scroll;
+}
+
+.bdPaygateOnePAY_logosContainer
+{
+	height: {xen:calc '52 + 5 * 2'}px;
 	margin: 0 auto;
 	max-width: 100%;
+	overflow-x: scroll;
+	overflow-y: hidden;
 	width: 410px;
+}
+
+ul.bdPaygateOnePAY_logos.local
+{
+	width: {xen:calc '(68 + 5 * 3) * 23 - 5'}px;
+}
+ul.bdPaygateOnePAY_logos.international
+{
+	width: {xen:calc '(68 + 5 * 3) * 5 - 5'}px;
 }
 
 ul.bdPaygateOnePAY_logos > li
@@ -179,18 +200,28 @@ ul.bdPaygateOnePAY_logos > li
 	</xen:if>
 
 </form>]]></template>
-    <template title="bdpaygateonepay_onepay_index" version_id="2" version_string="0.9-dev"><![CDATA[<xen:title>{xen:phrase bdpaygateonepay_call_to_action_both}</xen:title>
+    <template title="bdpaygateonepay_onepay_index" version_id="2" version_string="0.9-dev"><![CDATA[<xen:require css="bdpaygateonepay.css" />
+
+<xen:title>{xen:phrase bdpaygateonepay_call_to_action_both}</xen:title>
 
 <form action="{xen:link onepay}" method="POST" class="xenForm formOverlay">
-	<p>{xen:phrase bdpaygateonepay_go_to_onepay_explain}</p>
-	
+
+	<div class="bdPaygateOnePAY_ToS baseHtml">
+		<xen:include template="bdpaygateonepay_tos" />
+	</div>
+
+	<p>{xen:phrase bdpaygateonepay_go_to_onepay_explain_button_x, 'button={xen:phrase bdpaygateonepay_go_to_onepay}'}</p>
+	<br />
+
 	<p>
 		<label>
 			<input type="radio" name="pay" value="local" checked="checked" />
 			{xen:phrase bdpaygateonepay_call_to_action_local}
 		</label>
 	</p>
-	<xen:include template="bdpaygateonepay_logos_local" />
+	<div class="bdPaygateOnePAY_logosContainer">
+		<xen:include template="bdpaygateonepay_logos_local" />
+	</div>
 
 	<p>
 		<label>
@@ -198,8 +229,10 @@ ul.bdPaygateOnePAY_logos > li
 			{xen:phrase bdpaygateonepay_call_to_action_international}
 		</label>
 	</p>
-	<xen:include template="bdpaygateonepay_logos_international" />
-	
+	<div class="bdPaygateOnePAY_logosContainer">
+		<xen:include template="bdpaygateonepay_logos_international" />
+	</div>
+
 	<dl class="ctrlUnit submitUnit">
 		<dt></dt>
 		<dd>
@@ -217,6 +250,27 @@ ul.bdPaygateOnePAY_logos > li
 	<input type="hidden" name="extraData" value="{xen:escape {xen:helper json, $extraData}}" />
 
 </form>]]></template>
+    <template title="bdpaygateonepay_tos" version_id="2" version_string="0.9-dev"><![CDATA[<h2>ĐIỀU KIỆN THANH TOÁN DỊCH VỤ TRỰC TUYẾN</h2>
+<h3>1. Lập thành Thỏa thuận</h3>
+<p>Người mua: Sau đây được gọi là "Quí khách".</p>
+<p>{$xenOptions.boardTitle}: Sau đây được gọi là “Chúng tôi”.</p>
+
+<h3>2. Qui định và trình tự</h3>
+
+<h3>3. Trách nhiệm khác</h3>
+ 
+<p><em>{$xenOptions.boardTitle}</em></p>
+
+<h2>TERMS &amp; CONDITIONS FOR ONLINE PURCHASE</h2>
+<h3>1. Formation of Agreement</h3>
+<p>Buyer: hereinafter referred to as "You".</p>
+<p>{$xenOptions.boardTitle}: hereinafter referred to as "We".</p>
+
+<h3>2. Rules and Procedures</h3>
+
+<h3>3. Other Responsibilities</h3>
+
+<p><em>{$xenOptions.boardTitle}</em></p>]]></template>
   </templates>
   <public_template_modifications/>
   <bb_code_media_sites/>
