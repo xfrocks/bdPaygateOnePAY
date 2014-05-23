@@ -242,6 +242,25 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 
 	protected function _prepareOnePAYParams(array $params, array $extraData)
 	{
+		$orderInfo = $params['vpc_OrderInfo'];
+		$orderInfo = utf8_romanize(utf8_deaccent($orderInfo));
+		$characters = array();
+		for ($i = 0, $l = utf8_strlen($orderInfo); $i < $l; $i++)
+		{
+			$character = utf8_substr($orderInfo, $i, 1);
+			var_dump($character, ord($character));
+			if (ord($character) < 128)
+			{
+				$characters[] = $character;
+			}
+		}
+		$orderInfo = implode('', $characters);
+		if (strlen($orderInfo) > 32)
+		{
+			$orderInfo = substr($orderInfo, 0, 29) . '...';
+		}
+		$params['vpc_OrderInfo'] = $orderInfo;
+
 		return $params;
 	}
 
