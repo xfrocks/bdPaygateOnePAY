@@ -4,7 +4,26 @@ class bdPaygateOnePAY_Processor_Both extends bdPaygateOnePAY_Processor_Common
 {
 	protected function _getOnePAYId()
 	{
-		return 'N/A';
+		if ($this->_sandboxMode())
+		{
+			return 'always';
+		}
+
+		$options = XenForo_Application::getOptions();
+
+		$localId = $options->get('bdPaygateOnePAY__id');
+		if (!empty($localId))
+		{
+			return 'local';
+		}
+
+		$internationalId = $options->get('bdPaygateOnePAY_zint_id');
+		if (!empty($internationalId))
+		{
+			return 'international';
+		}
+
+		return '';
 	}
 
 	protected function _getOnePAYCode()

@@ -27,10 +27,12 @@ class bdPaygateOnePAY_ControllerPublic_OnePAY extends XenForo_ControllerPublic_A
 			$input['extraData'] = array();
 		}
 
+		$local = bdPaygate_Processor_Abstract::create('bdPaygateOnePAY_Processor_Local');
+		$international = bdPaygate_Processor_Abstract::create('bdPaygateOnePAY_Processor_International');
+
 		switch ($input['pay'])
 		{
 			case 'local':
-				$local = bdPaygate_Processor_Abstract::create('bdPaygateOnePAY_Processor_Local');
 				$link = call_user_func_array(array(
 					$local,
 					'bdPaygateOnePAY_getLink',
@@ -46,7 +48,6 @@ class bdPaygateOnePAY_ControllerPublic_OnePAY extends XenForo_ControllerPublic_A
 				$returnUrl = $local->bdPaygateOnePAY_getReturnUrl($input['extraData']);
 				break;
 			case 'international':
-				$international = bdPaygate_Processor_Abstract::create('bdPaygateOnePAY_Processor_International');
 				$link = call_user_func_array(array(
 					$international,
 					'bdPaygateOnePAY_getLink',
@@ -73,7 +74,12 @@ class bdPaygateOnePAY_ControllerPublic_OnePAY extends XenForo_ControllerPublic_A
 			return $this->responseRedirect(XenForo_ControllerResponse_Redirect::SUCCESS, $link);
 		}
 
-		return $this->responseView('bdPaygateOnePAY_ViewPublic_OnePAY_Index', 'bdpaygateonepay_onepay_index', $input);
+		$viewParams = $input;
+		$viewParams['localAvailable'] = $local->isAvailable();
+		$viewParams['internationalAvailable'] = $international->isAvailable();
+		$viewParams['bothAvailable'] = ($viewParams['localAvailable'] AND $viewParams['internationalAvailable']);
+
+		return $this->responseView('bdPaygateOnePAY_ViewPublic_OnePAY_Index', 'bdpaygateonepay_onepay_index', $viewParams);
 	}
 
 	public function actionComplete()

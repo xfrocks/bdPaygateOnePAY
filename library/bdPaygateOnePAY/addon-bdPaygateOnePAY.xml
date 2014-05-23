@@ -15,22 +15,47 @@
   <email_templates/>
   <email_template_modifications/>
   <optiongroups>
+    <group group_id="bdPaygateOnePAY" display_order="9999" debug_only="0"/>
     <option option_id="bdPaygateOnePAY__id" edit_format="textbox" data_type="string" can_backup="1">
       <default_value></default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
+      <relation group_id="bdPaygateOnePAY" display_order="1000"/>
       <relation group_id="debug" display_order="210"/>
     </option>
     <option option_id="bdPaygateOnePAY_code" edit_format="textbox" data_type="string" can_backup="1">
       <default_value></default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
+      <relation group_id="bdPaygateOnePAY" display_order="1010"/>
       <relation group_id="debug" display_order="210"/>
     </option>
     <option option_id="bdPaygateOnePAY_hash" edit_format="textbox" data_type="string" can_backup="1">
       <default_value></default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
+      <relation group_id="bdPaygateOnePAY" display_order="1020"/>
+      <relation group_id="debug" display_order="210"/>
+    </option>
+    <option option_id="bdPaygateOnePAY_zint_id" edit_format="textbox" data_type="string" can_backup="1">
+      <default_value></default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="bdPaygateOnePAY" display_order="2000"/>
+      <relation group_id="debug" display_order="210"/>
+    </option>
+    <option option_id="bdPaygateOnePAY_zintcode" edit_format="textbox" data_type="string" can_backup="1">
+      <default_value></default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="bdPaygateOnePAY" display_order="2010"/>
+      <relation group_id="debug" display_order="210"/>
+    </option>
+    <option option_id="bdPaygateOnePAY_zinthash" edit_format="textbox" data_type="string" can_backup="1">
+      <default_value></default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="bdPaygateOnePAY" display_order="2020"/>
       <relation group_id="debug" display_order="210"/>
     </option>
   </optiongroups>
@@ -48,12 +73,20 @@
     <phrase title="bdpaygateonepay_payment_rejected_message_x" version_id="1" version_string="0.9-dev"><![CDATA[Your payment has been rejected with this message: "{message}". Please try again later or contact our staff for support. We are sorry for the inconvenience.]]></phrase>
     <phrase title="bdpaygateonepay_payment_rejected_no_message" version_id="1" version_string="0.9-dev"><![CDATA[Your payment has been rejected for unknown reason. Please try again later or contact our staff for support. We are sorry for the inconvenience.]]></phrase>
     <phrase title="bdpaygateonepay_thank_you_payment_accepted" version_id="1" version_string="0.9-dev"><![CDATA[Thank you, your payment has been accepted.]]></phrase>
-    <phrase title="option_bdPaygateOnePAY_code" version_id="1" version_string="0.9-dev"><![CDATA[OnePAY Access Code]]></phrase>
+    <phrase title="option_bdPaygateOnePAY_code" version_id="3" version_string="1.0.0"><![CDATA[OnePAY Local - Access Code]]></phrase>
     <phrase title="option_bdPaygateOnePAY_code_explain" version_id="1" version_string="0.9-dev"><![CDATA[]]></phrase>
-    <phrase title="option_bdPaygateOnePAY_hash" version_id="1" version_string="0.9-dev"><![CDATA[OnePAY Hash Code]]></phrase>
+    <phrase title="option_bdPaygateOnePAY_hash" version_id="3" version_string="1.0.0"><![CDATA[OnePAY Local - Hash Code]]></phrase>
     <phrase title="option_bdPaygateOnePAY_hash_explain" version_id="1" version_string="0.9-dev"><![CDATA[]]></phrase>
-    <phrase title="option_bdPaygateOnePAY__id" version_id="1" version_string="0.9-dev"><![CDATA[OnePAY Merchant ID]]></phrase>
+    <phrase title="option_bdPaygateOnePAY_zintcode" version_id="3" version_string="1.0.0"><![CDATA[OnePAY International - Access Code]]></phrase>
+    <phrase title="option_bdPaygateOnePAY_zintcode_explain" version_id="3" version_string="1.0.0"><![CDATA[]]></phrase>
+    <phrase title="option_bdPaygateOnePAY_zinthash" version_id="3" version_string="1.0.0"><![CDATA[OnePAY International - Hash Code]]></phrase>
+    <phrase title="option_bdPaygateOnePAY_zinthash_explain" version_id="3" version_string="1.0.0"><![CDATA[]]></phrase>
+    <phrase title="option_bdPaygateOnePAY_zint_id" version_id="3" version_string="1.0.0"><![CDATA[OnePAY International - Merchant ID]]></phrase>
+    <phrase title="option_bdPaygateOnePAY_zint_id_explain" version_id="3" version_string="1.0.0"><![CDATA[]]></phrase>
+    <phrase title="option_bdPaygateOnePAY__id" version_id="3" version_string="1.0.0"><![CDATA[OnePAY Local - Merchant ID]]></phrase>
     <phrase title="option_bdPaygateOnePAY__id_explain" version_id="1" version_string="0.9-dev"><![CDATA[]]></phrase>
+    <phrase title="option_group_bdPaygateOnePAY" version_id="3" version_string="1.0.0"><![CDATA[[bd] Paygate: OnePAY]]></phrase>
+    <phrase title="option_group_bdPaygateOnePAY_description" version_id="3" version_string="1.0.0"><![CDATA[]]></phrase>
   </phrases>
   <route_prefixes>
     <route_type type="public">
@@ -62,7 +95,7 @@
   </route_prefixes>
   <style_properties/>
   <templates>
-    <template title="bdpaygateonepay.css" version_id="2" version_string="0.9-dev"><![CDATA[.bdPaygateOnePAY_ToS
+    <template title="bdpaygateonepay.css" version_id="3" version_string="1.0.0"><![CDATA[.bdPaygateOnePAY_ToS
 {
 	background: {xen:property contentBackground};
 	color: {xen:property contentText};
@@ -73,19 +106,31 @@
 
 .bdPaygateOnePAY_logosContainer
 {
-	height: {xen:calc '52 + 5 * 2'}px;
 	margin: 0 auto;
 	max-width: 100%;
-	overflow-x: scroll;
-	overflow-y: hidden;
 	width: 410px;
 }
+	.bdPaygateOnePAY_logosContainer > div
+	{
+		max-width: 100%;
+		overflow-x: scroll;
+		overflow-y: hidden;
+		width: 410px;
+	}
+	@media (min-width: 500px)
+	{
+		.bdPaygateOnePAY_logosContainer > div.local
+		{
+			max-width: none;
+			width: 450px;
+		}
+	}
 
-ul.bdPaygateOnePAY_logos.local
+.local ul.bdPaygateOnePAY_logos
 {
 	width: {xen:calc '(68 + 5 * 3) * 23 - 5'}px;
 }
-ul.bdPaygateOnePAY_logos.international
+.international ul.bdPaygateOnePAY_logos
 {
 	width: {xen:calc '(68 + 5 * 3) * 5 - 5'}px;
 }
@@ -142,18 +187,18 @@ ul.bdPaygateOnePAY_logos > li
 
 
 ]]></template>
-    <template title="bdpaygateonepay_logos_international" version_id="1" version_string="0.9-dev"><![CDATA[<xen:require css="bdpaygateonepay.css" />
+    <template title="bdpaygateonepay_logos_international" version_id="3" version_string="1.0.0"><![CDATA[<xen:require css="bdpaygateonepay.css" />
 
-<ul class="bdPaygateOnePAY_logos international">
+<ul class="bdPaygateOnePAY_logos">
 	<li class="visa">Visa</li>
 	<li class="mastercard">Mastercard</li>
 	<li class="jcb">JCB</li>
 	<li class="amex">American Express</li>
 	<li class="unionpay">UnionPay</li>
 </ul>]]></template>
-    <template title="bdpaygateonepay_logos_local" version_id="1" version_string="0.9-dev"><![CDATA[<xen:require css="bdpaygateonepay.css" />
+    <template title="bdpaygateonepay_logos_local" version_id="3" version_string="1.0.0"><![CDATA[<xen:require css="bdpaygateonepay.css" />
 
-<ul class="bdPaygateOnePAY_logos local">
+<ul class="bdPaygateOnePAY_logos">
 	<li class="vietcombank">Vietcombank</li>
 	<li class="vietinbank">Vietinbank</li>
 	<li class="bidv">BIDV</li>
@@ -200,7 +245,7 @@ ul.bdPaygateOnePAY_logos > li
 	</xen:if>
 
 </form>]]></template>
-    <template title="bdpaygateonepay_onepay_index" version_id="2" version_string="0.9-dev"><![CDATA[<xen:require css="bdpaygateonepay.css" />
+    <template title="bdpaygateonepay_onepay_index" version_id="3" version_string="1.0.0"><![CDATA[<xen:require css="bdpaygateonepay.css" />
 
 <xen:title>{xen:phrase bdpaygateonepay_call_to_action_both}</xen:title>
 
@@ -213,25 +258,43 @@ ul.bdPaygateOnePAY_logos > li
 	<p>{xen:phrase bdpaygateonepay_go_to_onepay_explain_button_x, 'button={xen:phrase bdpaygateonepay_go_to_onepay}'}</p>
 	<br />
 
+	<xen:if is="{$localAvailable}">
 	<p>
 		<label>
-			<input type="radio" name="pay" value="local" checked="checked" />
+			<xen:if is="{$bothAvailable}">
+				<input type="radio" name="pay" value="local" checked="checked" />
+			<xen:else />
+				<input type="hidden" name="pay" value="local" />
+			</xen:if>
+
 			{xen:phrase bdpaygateonepay_call_to_action_local}
 		</label>
 	</p>
 	<div class="bdPaygateOnePAY_logosContainer">
-		<xen:include template="bdpaygateonepay_logos_local" />
+		<div class="local">
+			<xen:include template="bdpaygateonepay_logos_local" />
+		</div>
 	</div>
+	</xen:if>
 
+	<xen:if is="{$internationalAvailable}">
 	<p>
 		<label>
-			<input type="radio" name="pay" value="international" />
+			<xen:if is="{$bothAvailable}">
+				<input type="radio" name="pay" value="international" />
+			<xen:else />
+				<input type="hidden" name="pay" value="international" />
+			</xen:if>
+
 			{xen:phrase bdpaygateonepay_call_to_action_international}
 		</label>
 	</p>
 	<div class="bdPaygateOnePAY_logosContainer">
-		<xen:include template="bdpaygateonepay_logos_international" />
+		<div class="international">
+			<xen:include template="bdpaygateonepay_logos_international" />
+		</div>
 	</div>
+	</xen:if>
 
 	<dl class="ctrlUnit submitUnit">
 		<dt></dt>

@@ -9,7 +9,7 @@ class bdPaygateOnePAY_Processor_International extends bdPaygateOnePAY_Processor_
 			return 'TESTONEPAY';
 		}
 
-		return XenForo_Application::getOptions()->get('bdPaygateOnePAY__id');
+		return XenForo_Application::getOptions()->get('bdPaygateOnePAY_zint_id');
 	}
 
 	protected function _getOnePAYCode()
@@ -19,7 +19,7 @@ class bdPaygateOnePAY_Processor_International extends bdPaygateOnePAY_Processor_
 			return '6BEB2546';
 		}
 
-		return XenForo_Application::getOptions()->get('bdPaygateOnePAY_code');
+		return XenForo_Application::getOptions()->get('bdPaygateOnePAY_zintcode');
 	}
 
 	protected function _getOnePAYHash()
@@ -29,7 +29,7 @@ class bdPaygateOnePAY_Processor_International extends bdPaygateOnePAY_Processor_
 			return '6D0870CDE5F24F34F3915FB0045120DB';
 		}
 
-		return XenForo_Application::getOptions()->get('bdPaygateOnePAY_hash');
+		return XenForo_Application::getOptions()->get('bdPaygateOnePAY_zinthash');
 	}
 
 	protected function _getOnePAYCallToAction()
