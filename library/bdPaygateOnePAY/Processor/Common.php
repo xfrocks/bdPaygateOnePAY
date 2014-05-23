@@ -164,7 +164,7 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 		$returnUrl = $session->get('_bdPaygateOnePAY_returnUrl');
 
 		header('Location: ' . XenForo_Link::buildPublicLink('canonical:onepay/complete', '', array(
-			'payment_accepted' => $paymentStatus == bdPaygate_Processor_Abstract::PAYMENT_STATUS_ACCEPTED ? 1 : 0,
+			'payment_accepted' => ($paymentStatus == bdPaygate_Processor_Abstract::PAYMENT_STATUS_REJECTED ? 0 : 1),
 			'message' => $message,
 			'return_url' => $returnUrl,
 		)));
