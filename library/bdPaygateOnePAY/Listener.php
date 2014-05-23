@@ -8,6 +8,7 @@ class bdPaygateOnePAY_Listener
 			'bdPaygate_Model_Processor',
 
 			'XenForo_ControllerAdmin_UserUpgrade',
+			'XenForo_Model_Log',
 			'XenForo_Model_Option',
 		);
 

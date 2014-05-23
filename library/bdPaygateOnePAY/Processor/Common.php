@@ -232,10 +232,12 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 	{
 		if (preg_match('#^[0-9]+/#', $merchTxnRef, $matches))
 		{
-			return substr($merchTxnRef, strlen($matches[0]));
+			$merchTxnRef = substr($merchTxnRef, strlen($matches[0]));
 		}
 
-		return false;
+		$merchTxnRef = bdPaygateOnePAY_Helper_ItemId::restoreItemIdFromUnique($merchTxnRef);
+
+		return $merchTxnRef;
 	}
 
 	protected function _prepareOnePAYParams(array $params, array $extraData)
