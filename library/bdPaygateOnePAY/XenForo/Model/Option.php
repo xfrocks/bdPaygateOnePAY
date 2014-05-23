@@ -15,6 +15,9 @@ class bdPaygateOnePAY_XenForo_Model_Option extends XFCP_bdPaygateOnePAY_XenForo_
 			$optionIds[] = 'bdPaygateOnePAY__id';
 			$optionIds[] = 'bdPaygateOnePAY_code';
 			$optionIds[] = 'bdPaygateOnePAY_hash';
+			$optionIds[] = 'bdPaygateOnePAY_zint_id';
+			$optionIds[] = 'bdPaygateOnePAY_zintcode';
+			$optionIds[] = 'bdPaygateOnePAY_zinthash';
 		}
 
 		$options = parent::getOptionsByIds($optionIds, $fetchOptions);
