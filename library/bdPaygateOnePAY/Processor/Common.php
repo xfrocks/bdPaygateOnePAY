@@ -171,7 +171,7 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 		die();
 	}
 
-	protected function _generateCallbackUrl($extraData)
+	protected function _generateCallbackUrl(array $extraData)
 	{
 		if ($this instanceof bdPaygateOnePAY_Processor_Local)
 		{
