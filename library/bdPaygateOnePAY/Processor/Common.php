@@ -108,6 +108,7 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 		$transactionId = (!empty($filtered['vpc_TransactionNo']) ? ('onepayc_' . $filtered['vpc_TransactionNo']) : '');
 		$transactionDetails = array_merge($_REQUEST, $filtered);
 		$itemId = $this->_parseMerchTxnRef($filtered['vpc_MerchTxnRef']);
+        $transactionDetails['$itemId'] = $itemId;
 		$amount = $filtered['vpc_Amount'] / 100;
 		$currency = bdPaygateOnePAY_Processor_Common::CURRENCY_VND;
 		$processorModel = $this->getModelFromCache('bdPaygate_Model_Processor');
