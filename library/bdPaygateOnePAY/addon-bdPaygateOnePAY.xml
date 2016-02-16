@@ -8,7 +8,6 @@
   <code_events/>
   <code_event_listeners>
     <listener event_id="file_health_check" execute_order="10" callback_class="bdPaygateOnePAY_Listener" callback_method="file_health_check" active="1" hint="" description=""/>
-    <listener event_id="load_class_controller" execute_order="10" callback_class="bdPaygateOnePAY_Listener" callback_method="load_class" active="1" hint="" description=""/>
     <listener event_id="load_class_model" execute_order="10" callback_class="bdPaygateOnePAY_Listener" callback_method="load_class" active="1" hint="" description=""/>
   </code_event_listeners>
   <cron/>
@@ -21,21 +20,18 @@
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="bdPaygateOnePAY" display_order="1000"/>
-      <relation group_id="debug" display_order="210"/>
     </option>
     <option option_id="bdPaygateOnePAY_code" edit_format="textbox" data_type="string" can_backup="1">
       <default_value></default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="bdPaygateOnePAY" display_order="1010"/>
-      <relation group_id="debug" display_order="210"/>
     </option>
     <option option_id="bdPaygateOnePAY_hash" edit_format="textbox" data_type="string" can_backup="1">
       <default_value></default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="bdPaygateOnePAY" display_order="1020"/>
-      <relation group_id="debug" display_order="210"/>
     </option>
     <option option_id="bdPaygateOnePAY_ipnOnly" edit_format="onoff" data_type="unsigned_integer" can_backup="1">
       <default_value>0</default_value>
@@ -48,21 +44,18 @@
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="bdPaygateOnePAY" display_order="2000"/>
-      <relation group_id="debug" display_order="210"/>
     </option>
     <option option_id="bdPaygateOnePAY_zintcode" edit_format="textbox" data_type="string" can_backup="1">
       <default_value></default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="bdPaygateOnePAY" display_order="2010"/>
-      <relation group_id="debug" display_order="210"/>
     </option>
     <option option_id="bdPaygateOnePAY_zinthash" edit_format="textbox" data_type="string" can_backup="1">
       <default_value></default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="bdPaygateOnePAY" display_order="2020"/>
-      <relation group_id="debug" display_order="210"/>
     </option>
   </optiongroups>
   <permissions>
@@ -79,19 +72,19 @@
     <phrase title="bdpaygateonepay_payment_rejected_message_x" version_id="1" version_string="0.9-dev"><![CDATA[Your payment has been rejected with this message: "{message}". Please try again later or contact our staff for support. We are sorry for the inconvenience.]]></phrase>
     <phrase title="bdpaygateonepay_payment_rejected_no_message" version_id="1" version_string="0.9-dev"><![CDATA[Your payment has been rejected for unknown reason. Please try again later or contact our staff for support. We are sorry for the inconvenience.]]></phrase>
     <phrase title="bdpaygateonepay_thank_you_payment_accepted" version_id="1" version_string="0.9-dev"><![CDATA[Thank you, your payment has been accepted.]]></phrase>
-    <phrase title="option_bdPaygateOnePAY_code" version_id="3" version_string="1.0.0"><![CDATA[OnePAY Local - Access Code]]></phrase>
+    <phrase title="option_bdPaygateOnePAY_code" version_id="1020002" version_string="1.2.0"><![CDATA[Local - Access Code]]></phrase>
     <phrase title="option_bdPaygateOnePAY_code_explain" version_id="1" version_string="0.9-dev"><![CDATA[]]></phrase>
-    <phrase title="option_bdPaygateOnePAY_hash" version_id="3" version_string="1.0.0"><![CDATA[OnePAY Local - Hash Code]]></phrase>
+    <phrase title="option_bdPaygateOnePAY_hash" version_id="1020002" version_string="1.2.0"><![CDATA[Local - Hash Code]]></phrase>
     <phrase title="option_bdPaygateOnePAY_hash_explain" version_id="1" version_string="0.9-dev"><![CDATA[]]></phrase>
     <phrase title="option_bdPaygateOnePAY_ipnOnly" version_id="1020002" version_string="1.2.0"><![CDATA[Process IPN only]]></phrase>
     <phrase title="option_bdPaygateOnePAY_ipnOnly_explain" version_id="1020002" version_string="1.2.0"><![CDATA[Enable this option <span style="font-weight: bold">AFTER</span> setting up IPN to enhance security.]]></phrase>
-    <phrase title="option_bdPaygateOnePAY_zintcode" version_id="3" version_string="1.0.0"><![CDATA[OnePAY International - Access Code]]></phrase>
+    <phrase title="option_bdPaygateOnePAY_zintcode" version_id="1020002" version_string="1.2.0"><![CDATA[International - Access Code]]></phrase>
     <phrase title="option_bdPaygateOnePAY_zintcode_explain" version_id="3" version_string="1.0.0"><![CDATA[]]></phrase>
-    <phrase title="option_bdPaygateOnePAY_zinthash" version_id="3" version_string="1.0.0"><![CDATA[OnePAY International - Hash Code]]></phrase>
+    <phrase title="option_bdPaygateOnePAY_zinthash" version_id="1020002" version_string="1.2.0"><![CDATA[International - Hash Code]]></phrase>
     <phrase title="option_bdPaygateOnePAY_zinthash_explain" version_id="3" version_string="1.0.0"><![CDATA[]]></phrase>
-    <phrase title="option_bdPaygateOnePAY_zint_id" version_id="3" version_string="1.0.0"><![CDATA[OnePAY International - Merchant ID]]></phrase>
+    <phrase title="option_bdPaygateOnePAY_zint_id" version_id="1020002" version_string="1.2.0"><![CDATA[International - Merchant ID]]></phrase>
     <phrase title="option_bdPaygateOnePAY_zint_id_explain" version_id="3" version_string="1.0.0"><![CDATA[]]></phrase>
-    <phrase title="option_bdPaygateOnePAY__id" version_id="3" version_string="1.0.0"><![CDATA[OnePAY Local - Merchant ID]]></phrase>
+    <phrase title="option_bdPaygateOnePAY__id" version_id="1020002" version_string="1.2.0"><![CDATA[Local - Merchant ID]]></phrase>
     <phrase title="option_bdPaygateOnePAY__id_explain" version_id="1" version_string="0.9-dev"><![CDATA[]]></phrase>
     <phrase title="option_group_bdPaygateOnePAY" version_id="3" version_string="1.0.0"><![CDATA[[bd] Paygate: OnePAY]]></phrase>
     <phrase title="option_group_bdPaygateOnePAY_description" version_id="3" version_string="1.0.0"><![CDATA[]]></phrase>
