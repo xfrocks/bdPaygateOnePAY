@@ -134,7 +134,7 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 	{
 		if (!empty($_REQUEST['ipn']))
 		{
-			if ($paymentStatus == bdPaygate_Processor_Abstract::PAYMENT_STATUS_ERROR)
+			if ($paymentStatus === bdPaygate_Processor_Abstract::PAYMENT_STATUS_ERROR)
 			{
 				die('responsecode=0&desc=confirm-fail');
 			}
@@ -144,9 +144,11 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 			}
 		}
 
+        $paymentAccepted = 1;
 		$message = '';
-		if ($paymentStatus == bdPaygate_Processor_Abstract::PAYMENT_STATUS_REJECTED)
+		if ($paymentStatus === bdPaygate_Processor_Abstract::PAYMENT_STATUS_REJECTED)
 		{
+            $paymentAccepted = 0;
 			if (!empty($_REQUEST['vpc_Message']))
 			{
 				$message = $_REQUEST['vpc_Message'];
@@ -165,7 +167,7 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 		$returnUrl = $session->get('_bdPaygateOnePAY_returnUrl');
 
 		header('Location: ' . XenForo_Link::buildPublicLink('canonical:onepay/complete', '', array(
-			'payment_accepted' => ($paymentStatus == bdPaygate_Processor_Abstract::PAYMENT_STATUS_REJECTED ? 0 : 1),
+			'payment_accepted' => $paymentAccepted,
 			'message' => $message,
 			'return_url' => $returnUrl,
 		)));

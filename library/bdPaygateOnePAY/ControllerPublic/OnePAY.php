@@ -88,6 +88,15 @@ class bdPaygateOnePAY_ControllerPublic_OnePAY extends XenForo_ControllerPublic_A
 		$message = $this->_input->filterSingle('message', XenForo_Input::STRING);
 		$returnUrl = $this->_input->filterSingle('return_url', XenForo_Input::STRING);
 
+		if ($paymentAccepted
+			&& $returnUrl
+		) {
+			return $this->responseRedirect(
+				XenForo_ControllerResponse_Redirect::SUCCESS,
+				$returnUrl
+			);
+		}
+
 		$viewParams = array(
 			'paymentAccepted' => $paymentAccepted,
 			'message' => $message,
