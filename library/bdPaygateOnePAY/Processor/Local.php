@@ -39,7 +39,7 @@ class bdPaygateOnePAY_Processor_Local extends bdPaygateOnePAY_Processor_Common
 
 	protected function _getOnePAYLink()
 	{
-		return $this->_sandboxMode() ? 'http://mtf.onepay.vn/onecomm-pay/vpc.op' : 'https://onepay.vn/onecomm-pay/vpc.op';
+		return $this->_sandboxMode() ? 'https://mtf.onepay.vn/onecomm-pay/vpc.op' : 'https://onepay.vn/onecomm-pay/vpc.op';
 	}
 
 	protected function _prepareOnePAYParams(array $params, array $extraData)
