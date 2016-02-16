@@ -37,6 +37,12 @@
       <relation group_id="bdPaygateOnePAY" display_order="1020"/>
       <relation group_id="debug" display_order="210"/>
     </option>
+    <option option_id="bdPaygateOnePAY_ipnOnly" edit_format="onoff" data_type="unsigned_integer" can_backup="1">
+      <default_value>0</default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="bdPaygateOnePAY" display_order="10000"/>
+    </option>
     <option option_id="bdPaygateOnePAY_zint_id" edit_format="textbox" data_type="string" can_backup="1">
       <default_value></default_value>
       <edit_format_params></edit_format_params>
@@ -77,6 +83,8 @@
     <phrase title="option_bdPaygateOnePAY_code_explain" version_id="1" version_string="0.9-dev"><![CDATA[]]></phrase>
     <phrase title="option_bdPaygateOnePAY_hash" version_id="3" version_string="1.0.0"><![CDATA[OnePAY Local - Hash Code]]></phrase>
     <phrase title="option_bdPaygateOnePAY_hash_explain" version_id="1" version_string="0.9-dev"><![CDATA[]]></phrase>
+    <phrase title="option_bdPaygateOnePAY_ipnOnly" version_id="1020002" version_string="1.2.0"><![CDATA[Process IPN only]]></phrase>
+    <phrase title="option_bdPaygateOnePAY_ipnOnly_explain" version_id="1020002" version_string="1.2.0"><![CDATA[Enable this option <span style="font-weight: bold">AFTER</span> setting up IPN to enhance security.]]></phrase>
     <phrase title="option_bdPaygateOnePAY_zintcode" version_id="3" version_string="1.0.0"><![CDATA[OnePAY International - Access Code]]></phrase>
     <phrase title="option_bdPaygateOnePAY_zintcode_explain" version_id="3" version_string="1.0.0"><![CDATA[]]></phrase>
     <phrase title="option_bdPaygateOnePAY_zinthash" version_id="3" version_string="1.0.0"><![CDATA[OnePAY International - Hash Code]]></phrase>

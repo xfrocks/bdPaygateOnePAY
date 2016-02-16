@@ -91,6 +91,8 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 			'vpc_TxnResponseCode' => XenForo_Input::STRING,
 			'vpc_TransactionNo' => XenForo_Input::STRING,
 			'vpc_SecureHash' => XenForo_Input::STRING,
+
+			'ipn' => XenForo_Input::BOOLEAN,
 		));
 
 		$params = $_REQUEST;
@@ -111,7 +113,17 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
         $transactionDetails['$itemId'] = $itemId;
 		$amount = $filtered['vpc_Amount'] / 100;
 		$currency = bdPaygateOnePAY_Processor_Common::CURRENCY_VND;
-		$processorModel = $this->getModelFromCache('bdPaygate_Model_Processor');
+
+        $paymentStatus = bdPaygate_Processor_Abstract::PAYMENT_STATUS_OTHER;
+        $ipnOnly = XenForo_Application::getOptions()->get('bdPaygateOnePAY_ipnOnly');
+        if ($ipnOnly
+            && !$filtered['ipn']
+        ) {
+            // do not process non-ipn callback if admin had configured to do ipn only
+            // still return true to make this a non-error
+            $this->_setError('Non-IPN requests are ignored.');
+            return true;
+        }
 
 		if ($filtered['vpc_TxnResponseCode'] === '0')
 		{
