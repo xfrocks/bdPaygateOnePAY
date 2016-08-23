@@ -69,6 +69,18 @@
     <phrase title="bdpaygateonepay_call_to_action_local" version_id="1" version_string="0.9-dev"><![CDATA[ Pay with ATM card]]></phrase>
     <phrase title="bdpaygateonepay_go_to_onepay" version_id="2" version_string="0.9-dev"><![CDATA[Pay Now]]></phrase>
     <phrase title="bdpaygateonepay_go_to_onepay_explain_button_x" version_id="2" version_string="0.9-dev"><![CDATA[By clicking the below "{button}" button, you have agreed to our Terms of Service.]]></phrase>
+    <phrase title="bdpaygateonepay_message_3d_secure" version_id="1030000" version_string="1.3.0"><![CDATA[Cannot authenticated by 3D-Secure Program]]></phrase>
+    <phrase title="bdpaygateonepay_message_blocked_by_ofd" version_id="1030000" version_string="1.3.0"><![CDATA[Transaction has been blocked by OFD]]></phrase>
+    <phrase title="bdpaygateonepay_message_csc_or_declined" version_id="1030000" version_string="1.3.0"><![CDATA[Invalis CSC or transaction has been declined]]></phrase>
+    <phrase title="bdpaygateonepay_message_declined" version_id="1030000" version_string="1.3.0"><![CDATA[Transaction has been declined]]></phrase>
+    <phrase title="bdpaygateonepay_message_error" version_id="1030000" version_string="1.3.0"><![CDATA[Error when processing transaction]]></phrase>
+    <phrase title="bdpaygateonepay_message_expired" version_id="1030000" version_string="1.3.0"><![CDATA[Card has expired]]></phrase>
+    <phrase title="bdpaygateonepay_message_insufficient_funds" version_id="1030000" version_string="1.3.0"><![CDATA[Insufficient funds]]></phrase>
+    <phrase title="bdpaygateonepay_message_invalid_date" version_id="1030000" version_string="1.3.0"><![CDATA[Invalid card date]]></phrase>
+    <phrase title="bdpaygateonepay_message_invalid_name" version_id="1030000" version_string="1.3.0"><![CDATA[Invalid card name]]></phrase>
+    <phrase title="bdpaygateonepay_message_invalid_number" version_id="1030000" version_string="1.3.0"><![CDATA[Invalid card number]]></phrase>
+    <phrase title="bdpaygateonepay_message_no_internet_banking" version_id="1030000" version_string="1.3.0"><![CDATA[Card does not support internet banking]]></phrase>
+    <phrase title="bdpaygateonepay_message_user_cancelled" version_id="1030000" version_string="1.3.0"><![CDATA[User cancelled]]></phrase>
     <phrase title="bdpaygateonepay_payment_rejected_message_x" version_id="1" version_string="0.9-dev"><![CDATA[Your payment has been rejected with this message: "{message}". Please try again later or contact our staff for support. We are sorry for the inconvenience.]]></phrase>
     <phrase title="bdpaygateonepay_payment_rejected_no_message" version_id="1" version_string="0.9-dev"><![CDATA[Your payment has been rejected for unknown reason. Please try again later or contact our staff for support. We are sorry for the inconvenience.]]></phrase>
     <phrase title="bdpaygateonepay_thank_you_payment_accepted" version_id="1" version_string="0.9-dev"><![CDATA[Thank you, your payment has been accepted.]]></phrase>

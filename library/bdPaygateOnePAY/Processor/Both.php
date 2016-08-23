@@ -43,6 +43,11 @@ class bdPaygateOnePAY_Processor_Both extends bdPaygateOnePAY_Processor_Common
         return '';
     }
 
+    protected function _getOnePAYUnacceptedMessage()
+    {
+        return '';
+    }
+
     public function generateFormData(
         $amount,
         $currency,

@@ -14,6 +14,8 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 
     abstract protected function _getOnePAYLink();
 
+    abstract protected function _getOnePAYUnacceptedMessage();
+
     public function bdPaygateOnePAY_getLink(
         $amount,
         $currency,
@@ -176,12 +178,19 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
             }
         }
 
-        $paymentAccepted = 1;
+        $paymentAccepted = 0;
+        if (isset($_REQUEST['vpc_TxnResponseCode'])
+            && $_REQUEST['vpc_TxnResponseCode'] === '0'
+        ) {
+            $paymentAccepted = 1;
+        }
+
         $message = '';
-        if ($paymentStatus === bdPaygate_Processor_Abstract::PAYMENT_STATUS_REJECTED) {
-            $paymentAccepted = 0;
-            if (!empty($_REQUEST['vpc_Message'])) {
+        if (!$paymentAccepted) {
+            if (isset($_REQUEST['vpc_Message'])) {
                 $message = $_REQUEST['vpc_Message'];
+            } else {
+                $message = $this->_getOnePAYUnacceptedMessage();
             }
         }
 
