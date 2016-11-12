@@ -2,7 +2,7 @@
 
 class bdPaygateOnePAY_Processor_International extends bdPaygateOnePAY_Processor_Common
 {
-    protected function _getOnePAYId()
+    public function _getOnePAYId()
     {
         if ($this->_sandboxMode()) {
             /**
@@ -16,7 +16,7 @@ class bdPaygateOnePAY_Processor_International extends bdPaygateOnePAY_Processor_
         return XenForo_Application::getOptions()->get('bdPaygateOnePAY_zint_id');
     }
 
-    protected function _getOnePAYCode()
+    public function _getOnePAYCode()
     {
         if ($this->_sandboxMode()) {
             return '6BEB2546';
@@ -87,6 +87,11 @@ class bdPaygateOnePAY_Processor_International extends bdPaygateOnePAY_Processor_
             case 'Z':
                 return new XenForo_Phrase('bdpaygateonepay_message_blocked_by_ofd');
         }
+    }
+
+    public function getQueryLink()
+    {
+        return $this->_sandboxMode() ? 'https://mtf.onepay.vn/vpcpay/Vpcdps.op' : 'https://onepay.vn/vpcpay/Vpcdps.op';
     }
 
     protected function _prepareOnePAYParams(array $params, array $extraData)

@@ -60,6 +60,10 @@ class bdPaygateOnePAY_Installer
         $existingAddOn,
         $addOnData
     ) {
+        if (XenForo_Application::$versionId < 1040000) {
+            throw new Exception('XenForo v1.4.0+ is required.');
+        }
+
         $db = XenForo_Application::getDb();
 
         $db->query('

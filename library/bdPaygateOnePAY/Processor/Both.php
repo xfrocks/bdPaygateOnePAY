@@ -2,7 +2,7 @@
 
 class bdPaygateOnePAY_Processor_Both extends bdPaygateOnePAY_Processor_Common
 {
-    protected function _getOnePAYId()
+    public function _getOnePAYId()
     {
         if ($this->_sandboxMode()) {
             return 'always';
@@ -23,7 +23,7 @@ class bdPaygateOnePAY_Processor_Both extends bdPaygateOnePAY_Processor_Common
         return '';
     }
 
-    protected function _getOnePAYCode()
+    public function _getOnePAYCode()
     {
         return 'N/A';
     }
@@ -46,6 +46,11 @@ class bdPaygateOnePAY_Processor_Both extends bdPaygateOnePAY_Processor_Common
     protected function _getOnePAYUnacceptedMessage()
     {
         return '';
+    }
+
+    public function getQueryLink()
+    {
+        throw new XenForo_Exception('Not supported');
     }
 
     public function generateFormData(

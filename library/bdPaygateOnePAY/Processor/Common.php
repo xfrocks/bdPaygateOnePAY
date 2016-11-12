@@ -4,9 +4,9 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 {
     const CURRENCY_VND = 'vnd';
 
-    abstract protected function _getOnePAYId();
+    abstract public function _getOnePAYId();
 
-    abstract protected function _getOnePAYCode();
+    abstract public function _getOnePAYCode();
 
     abstract protected function _getOnePAYHash();
 
@@ -15,6 +15,8 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
     abstract protected function _getOnePAYLink();
 
     abstract protected function _getOnePAYUnacceptedMessage();
+
+    abstract public function getQueryLink();
 
     public function bdPaygateOnePAY_getLink(
         $amount,
@@ -44,8 +46,8 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
         );
 
         $params = $this->_prepareOnePAYParams($params, $extraData);
-
-        $params['vpc_SecureHash'] = $this->_generateSecureHash($params);
+        $params = array_map('strval', $params);
+        $params['vpc_SecureHash'] = $this->generateSecureHash($params);
 
         $link = $this->_getOnePAYLink();
 
@@ -63,6 +65,11 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
     public function bdPaygateOnePAY_getReturnUrl($extraData)
     {
         return $this->_generateReturnUrl($extraData);
+    }
+
+    public function bdPaygateOnePay_getCallbackUrl($extraData)
+    {
+        return $this->_generateCallbackUrl($extraData);
     }
 
     public function getSupportedCurrencies()
@@ -92,8 +99,8 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
         $amount = false;
         $currency = false;
 
-        return $this->validateCallback2($request, $transactionId, $paymentStatus, $transactionDetails, $itemId, $amount,
-            $currency);
+        return $this->validateCallback2($request, $transactionId, $paymentStatus,
+            $transactionDetails, $itemId, $amount, $currency);
     }
 
     public function validateCallback2(
@@ -119,11 +126,7 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
             'ipn' => XenForo_Input::BOOLEAN,
         ));
 
-        $params = $_REQUEST;
-        if (isset($params['vpc_SecureHash'])) {
-            unset($params['vpc_SecureHash']);
-        }
-        $secureHash = $this->_generateSecureHash($params);
+        $secureHash = $this->generateSecureHash($_REQUEST);
         if ($secureHash !== $filtered['vpc_SecureHash']) {
             $this->_setError('Request not validated');
             return false;
@@ -138,12 +141,21 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
 
         $paymentStatus = bdPaygate_Processor_Abstract::PAYMENT_STATUS_OTHER;
         $ipnOnly = XenForo_Application::getOptions()->get('bdPaygateOnePAY_ipnOnly');
-        if ($ipnOnly
-            && !$filtered['ipn']
-        ) {
+        if ($ipnOnly && !$filtered['ipn']) {
             // do not process non-ipn callback if admin had configured to do ipn only
             // still return true to make this a non-error
+            $transactionDetails['_nonIpnIgnored'] = true;
             $this->_setError('Non-IPN requests are ignored.');
+
+            // schedule a query in 15 minutes, according to OnePAY document
+            $queryDelay = 900;
+            if (XenForo_Application::debugMode()) {
+                $queryDelay = 0;
+            }
+            XenForo_Application::defer('bdPaygateOnePAY_Deferred_QueryDR', $filtered
+                + array('_queryDR_processorClass' => get_class($this)),
+                null, false, XenForo_Application::$time + $queryDelay);
+
             return true;
         }
 
@@ -224,7 +236,7 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
         return sprintf('%d/%s', XenForo_Application::$time, $itemId);
     }
 
-    protected function _generateSecureHash(array &$params)
+    public function generateSecureHash(array $params)
     {
         $data = '';
         $hash = $this->_getOnePAYHash();
@@ -233,11 +245,12 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
         sort($paramKeys);
 
         foreach ($paramKeys as $paramKey) {
-            $params[$paramKey] = strval($params[$paramKey]);
-            $paramValue = $params[$paramKey];
+            if ($paramKey === 'vpc_SecureHash') {
+                continue;
+            }
 
+            $paramValue = $params[$paramKey];
             if (strlen($paramValue) == 0) {
-                unset($params[$paramKey]);
                 continue;
             }
 

@@ -22,4 +22,11 @@ class bdPaygateOnePAY_Listener
         $hashes += bdPaygateOnePAY_FileSums::getHashes();
     }
 
+
+    public static function load_class_XenForo_ControllerAdmin_Log($class, array &$extend)
+    {
+        if ($class === 'XenForo_ControllerAdmin_Log') {
+            $extend[] = 'bdPaygateOnePAY_XenForo_ControllerAdmin_Log';
+        }
+    }
 }

@@ -2,7 +2,7 @@
 
 class bdPaygateOnePAY_Processor_Local extends bdPaygateOnePAY_Processor_Common
 {
-    protected function _getOnePAYId()
+    public function _getOnePAYId()
     {
         if ($this->_sandboxMode()) {
             /**
@@ -15,7 +15,7 @@ class bdPaygateOnePAY_Processor_Local extends bdPaygateOnePAY_Processor_Common
         return XenForo_Application::getOptions()->get('bdPaygateOnePAY__id');
     }
 
-    protected function _getOnePAYCode()
+    public function _getOnePAYCode()
     {
         if ($this->_sandboxMode()) {
             return 'D67342C2';
@@ -27,6 +27,7 @@ class bdPaygateOnePAY_Processor_Local extends bdPaygateOnePAY_Processor_Common
     protected function _getOnePAYHash()
     {
         if ($this->_sandboxMode()) {
+            /** @noinspection SpellCheckingInspection */
             return 'A3EFDFABA8653DF2342E8DAC29B51AF0';
         }
 
@@ -77,6 +78,13 @@ class bdPaygateOnePAY_Processor_Local extends bdPaygateOnePAY_Processor_Common
             case '99':
                 return new XenForo_Phrase('bdpaygateonepay_message_user_cancelled');
         }
+    }
+
+    public function getQueryLink()
+    {
+        return $this->_sandboxMode()
+            ? 'https://mtf.onepay.vn/onecomm-pay/Vpcdps.op'
+            : 'https://onepay.vn/onecomm-pay/Vpcdps.op';
     }
 
     protected function _prepareOnePAYParams(array $params, array $extraData)
