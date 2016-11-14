@@ -2,18 +2,6 @@
 
 class bdPaygateOnePAY_Listener
 {
-    public static function load_class($class, array &$extend)
-    {
-        static $classes = array(
-            'bdPaygate_Model_Processor',
-            'XenForo_Model_Log',
-        );
-
-        if (in_array($class, $classes)) {
-            $extend[] = 'bdPaygateOnePAY_' . $class;
-        }
-    }
-
     public static function file_health_check(
         /** @noinspection PhpUnusedParameterInspection */
         XenForo_ControllerAdmin_Abstract $controller,
@@ -27,6 +15,13 @@ class bdPaygateOnePAY_Listener
     {
         if ($class === 'XenForo_ControllerAdmin_Log') {
             $extend[] = 'bdPaygateOnePAY_XenForo_ControllerAdmin_Log';
+        }
+    }
+
+    public static function load_class_bdPaygate_Model_Processor($class, array &$extend)
+    {
+        if ($class === 'bdPaygate_Model_Processor') {
+            $extend[] = 'bdPaygateOnePAY_bdPaygate_Model_Processor';
         }
     }
 }

@@ -9,9 +9,11 @@
   <code_event_listeners>
     <listener event_id="file_health_check" execute_order="10" callback_class="bdPaygateOnePAY_Listener" callback_method="file_health_check" active="1" hint="" description=""/>
     <listener event_id="load_class_controller" execute_order="20" callback_class="bdPaygateOnePAY_Listener" callback_method="load_class_XenForo_ControllerAdmin_Log" active="1" hint="XenForo_ControllerAdmin_Log" description="XenForo_ControllerAdmin_Log"/>
-    <listener event_id="load_class_model" execute_order="10" callback_class="bdPaygateOnePAY_Listener" callback_method="load_class" active="1" hint="" description=""/>
+    <listener event_id="load_class_model" execute_order="10" callback_class="bdPaygateOnePAY_Listener" callback_method="load_class_bdPaygate_Model_Processor" active="1" hint="bdPaygate_Model_Processor" description="bdPaygate_Model_Processor"/>
   </code_event_listeners>
-  <cron/>
+  <cron>
+    <entry entry_id="bdPaygateOnePAY_Log" cron_class="bdPaygateOnePAY_CronEntry_Log" cron_method="cleanUp" active="1"><![CDATA[{"day_type":"dom","dom":["29"],"hours":["6"],"minutes":["29"]}]]></entry>
+  </cron>
   <email_templates/>
   <email_template_modifications/>
   <optiongroups>
@@ -85,6 +87,7 @@
     <phrase title="bdpaygateonepay_payment_rejected_message_x" version_id="1" version_string="0.9-dev"><![CDATA[Your payment has been rejected with this message: "{message}". Please try again later or contact our staff for support. We are sorry for the inconvenience.]]></phrase>
     <phrase title="bdpaygateonepay_payment_rejected_no_message" version_id="1" version_string="0.9-dev"><![CDATA[Your payment has been rejected for unknown reason. Please try again later or contact our staff for support. We are sorry for the inconvenience.]]></phrase>
     <phrase title="bdpaygateonepay_thank_you_payment_accepted" version_id="1" version_string="0.9-dev"><![CDATA[Thank you, your payment has been accepted.]]></phrase>
+    <phrase title="cron_entry_bdPaygateOnePAY_Log" version_id="1030100" version_string="1.3.1"><![CDATA[[bd] Paygate: OnePAY (log cleanup)]]></phrase>
     <phrase title="option_bdPaygateOnePAY_code" version_id="1020002" version_string="1.2.0"><![CDATA[Local - Access Code]]></phrase>
     <phrase title="option_bdPaygateOnePAY_code_explain" version_id="1" version_string="0.9-dev"><![CDATA[]]></phrase>
     <phrase title="option_bdPaygateOnePAY_hash" version_id="1020002" version_string="1.2.0"><![CDATA[Local - Hash Code]]></phrase>
