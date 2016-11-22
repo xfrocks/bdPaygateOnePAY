@@ -20,6 +20,15 @@ class bdPaygateOnePAY_bdPaygate_Model_Processor extends XFCP_bdPaygateOnePAY_bdP
         return parent::formatAmount($amount, $currency);
     }
 
+    public function truncateAmount($amount, $currency)
+    {
+        if ($currency === bdPaygateOnePAY_Processor_Common::CURRENCY_VND) {
+            return round($amount);
+        }
+
+        return parent::truncateAmount($amount, $currency);
+    }
+
     public function getProcessorNames()
     {
         $names = parent::getProcessorNames();
