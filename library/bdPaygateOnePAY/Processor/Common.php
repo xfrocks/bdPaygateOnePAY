@@ -147,14 +147,17 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
             $transactionDetails['_nonIpnIgnored'] = true;
             $this->_setError('Non-IPN requests are ignored.');
 
-            // schedule a query in 15 minutes, according to OnePAY document
-            $queryDelay = 900;
-            if (XenForo_Application::debugMode()) {
-                $queryDelay = 0;
+            if ($filtered['vpc_TxnResponseCode'] === '0') {
+                // schedule a query in 15 minutes, according to OnePAY document
+                // only defer what appears to be a success transaction though
+                $queryDelay = 900;
+                if (XenForo_Application::debugMode()) {
+                    $queryDelay = 0;
+                }
+                XenForo_Application::defer('bdPaygateOnePAY_Deferred_QueryDR', $filtered
+                    + array('_queryDR_processorClass' => get_class($this)),
+                    null, false, XenForo_Application::$time + $queryDelay);
             }
-            XenForo_Application::defer('bdPaygateOnePAY_Deferred_QueryDR', $filtered
-                + array('_queryDR_processorClass' => get_class($this)),
-                null, false, XenForo_Application::$time + $queryDelay);
 
             return true;
         }
