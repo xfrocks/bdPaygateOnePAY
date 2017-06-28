@@ -298,7 +298,6 @@ abstract class bdPaygateOnePAY_Processor_Common extends bdPaygate_Processor_Abst
         $characters = array();
         for ($i = 0, $l = utf8_strlen($orderInfo); $i < $l; $i++) {
             $character = utf8_substr($orderInfo, $i, 1);
-            var_dump($character, ord($character));
             if (ord($character) < 128) {
                 $characters[] = $character;
             }
