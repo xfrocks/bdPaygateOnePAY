@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="bdPaygateOnePAY" title="[bd] Paygate: OnePAY" version_string="1.3.1" version_id="1030101" url="" install_callback_class="bdPaygateOnePAY_Installer" install_callback_method="install" uninstall_callback_class="bdPaygateOnePAY_Installer" uninstall_callback_method="uninstall">
+<addon addon_id="bdPaygateOnePAY" title="[bd] Paygate: OnePAY" version_string="1.3.1" version_id="1030102" url="" install_callback_class="bdPaygateOnePAY_Installer" install_callback_method="install" uninstall_callback_class="bdPaygateOnePAY_Installer" uninstall_callback_method="uninstall">
   <admin_navigation/>
   <admin_permissions/>
   <admin_style_properties/>
